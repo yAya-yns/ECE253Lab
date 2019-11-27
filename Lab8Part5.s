@@ -1,3 +1,7 @@
+//finding the highest number of 1's, leading and trailing 0's in a list of number
+//no subroutines were used in this code
+
+
 	.text
 	.global _start
 	
