@@ -1,11 +1,10 @@
-//finding the highest number of 1's, leading and trailing 0's in a list of number
-//no subroutines were used in this code
-
-
 	.text
 	.global _start
 	
 _start:
+	//finding the highest number of 1's, leading and trailing 0's in a list of number
+	//no subroutines were used in this code
+
 	//initialization
 	//register used: r0(address of current word), r1 (storing value for current word), r2(temp variable to see the result of masking) 
 	//r5-r7 (counter for current word's ones, leading, trailing)
@@ -31,9 +30,10 @@ ONESLoop:
 	lsr r1,#1
 	b ONESLoop
 storeOnes:
-	movlt r8,r5
-
-	
+	cmp r8, r5
+	bgt storeOnes1
+	mov r8,r5
+storeOnes1:
 	//counting leading zeros
 	mov r6,#0//this value is greater than the current "max"
 	mov r2,#0//temp variable to see the result of masking
@@ -48,7 +48,7 @@ LeadingZerosLoop:
 	lsl r1,#1
 	b LeadingZerosLoop
 storeLdZeros:
-	movle r9,r6
+	movle r9,r6  //tried le and lt, r9 -> 0 when movle 18,0
 	b JumpLdZero	
 LdZero:
 	mov r9,#32
@@ -81,7 +81,6 @@ JumpTlZero:
 END:
 	b END
 	
-LIST: .word 0b00011111111111111100111111111000,0,-1	
+LIST: .word 0b00011111111111111100111111111000,0b00001111111111111100111111111000,0,-1	
 	
 .end
-
